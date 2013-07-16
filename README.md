@@ -11,6 +11,12 @@ Basic installation:
     class {'activemq':
     }
 
+Advanced installation:
+
+    class {'activemq':
+      user => 'someuser',
+    }
+
 Basic mcollective queue:
 
     activemq::instance {'mcollective':
