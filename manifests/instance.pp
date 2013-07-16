@@ -1,5 +1,5 @@
 define activemq::instance(
-  $name             = "main",
+  $instance_name    = '',
   $openwire         = true,
   $openwire_port    = 6166,
   $stomp_nio        = true,
@@ -7,24 +7,48 @@ define activemq::instance(
   $stomp_queue      = true,
   $stomp_queue_port = 61613,
 
-  $user_name        = "mcollective",
-  $user_password    = "secret",
+  $user_name        = "guest",
+  $user_password    = "guest",
   $user_groups      = "users,everyone",
-  $user_auth_queue  = "mcollective.>",
-  $user_auth_topic  = "mcollective.>",
+  $user_auth_queue  = '',
+  $user_auth_topic  = '',
 
   $admin_name       = "admin",
-  $admin_password   = "secret",
+  $admin_password   = "admin",
   $admin_groups     = "admins,everyone",
   $admin_auth_queue  = ">",
   $admin_auth_topic  = ">",
 ) {
 
-  $instance_path = "/etc/activemq/instances-available/${::name}"
-  $instance_enabled_path = "/etc/activemq/instances-enabled/${::name}"
+  if $instance_name != '' {
+    $real_name = $instance_name
+  } else {
+    $real_name = $name
+  }
+
+  if $user_auth_queue == '' {
+    $real_user_auth_queue = "${real_name}.>"
+  } else {
+    $real_user_auth_queue = $user_auth_queue
+  }
+
+  if $user_auth_topic == '' {
+    $real_user_auth_topic = "${real_name}.>"
+  } else {
+    $real_user_auth_topic = $user_auth_topic
+  }
+
+
+  $instance_path = "/etc/activemq/instances-available/${real_name}"
+  $instance_enabled_path = "/etc/activemq/instances-enabled/${real_name}"
+
+  File {
+    notify => Class['activemq::service'],
+  }
 
   file { $instance_path:
-    ensure => directory,
+    ensure  => directory,
+    require => Class['activemq::config'],
   }
 
   file {"${instance_path}/activemq.xml":
@@ -35,13 +59,13 @@ define activemq::instance(
 
   file {"${instance_path}/log4j.properties":
     ensure  => present,
-    source  => template('activemq/log4j.properties'),
+    content => template('activemq/log4j.properties.erb'),
     require => File[$instance_path],
   }
 
   file {"${instance_path}/credentials.properties":
     ensure  => present,
-    source  => template('activemq/credentials.properties'),
+    content => template('activemq/credentials.properties.erb'),
     require => File[$instance_path],
   }
 

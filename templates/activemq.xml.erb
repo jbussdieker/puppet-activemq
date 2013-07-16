@@ -11,11 +11,11 @@
 
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
-      <value>file:/etc/activemq/instances-enabled/mcollective/credentials.properties</value>
+      <value>file:<%= @instance_enabled_path %>/credentials.properties</value>
     </property>
   </bean>
 
-  <broker xmlns="http://activemq.apache.org/schema/core" brokerName="mcollective-broker" useJmx="true">
+  <broker xmlns="http://activemq.apache.org/schema/core" brokerName="<%= @real_name %>-broker" useJmx="true">
     <destinationPolicy>
       <policyMap>
         <policyEntries>
@@ -45,8 +45,8 @@
             <authorizationEntries>
               <authorizationEntry queue="<%= @admin_auth_queue %>" write="admins" read="admins" admin="admins" />
               <authorizationEntry topic="<%= @admin_auth_topic %>" write="admins" read="admins" admin="admins" />
-              <authorizationEntry topic="<%= @user_auth_queue %>" write="users" read="users" admin="users" />
-              <authorizationEntry queue="<%= @user_auth_topic %>" write="users" read="users" admin="users" />
+              <authorizationEntry topic="<%= @real_user_auth_queue %>" write="users" read="users" admin="users" />
+              <authorizationEntry queue="<%= @real_user_auth_topic %>" write="users" read="users" admin="users" />
               <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
             </authorizationEntries>
           </authorizationMap>
