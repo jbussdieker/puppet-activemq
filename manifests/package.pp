@@ -1,7 +1,8 @@
 class activemq::package {
 
   package {'activemq':
-    ensure => present,
+    ensure  => present,
+    require => Package['java'],
   }
 
 }
