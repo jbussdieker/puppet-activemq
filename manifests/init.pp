@@ -1,5 +1,6 @@
 class activemq(
-  $user = 'activemq'
+  $user = 'activemq',
+  $instances = {}
 ) {
 
   class {'activemq::package':
