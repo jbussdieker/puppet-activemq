@@ -3,6 +3,8 @@ class activemq(
   $instances = {}
 ) {
 
+  include java
+  
   class {'activemq::package':
   }
 
@@ -12,7 +14,10 @@ class activemq(
   }
 
   class {'activemq::service':
-    require => Class['activemq::config'],
+    require => [
+      Class['activemq::config'],
+      Class['java'],
+    ],
   }
 
   create_resources('activemq::instance', $instances)
