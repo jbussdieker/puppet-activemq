@@ -6,6 +6,8 @@ class activemq::config {
     group   => 'root',
     mode    => 0644,
     content => template('activemq/default.erb'),
+    require => Package['activemq'],
+    notify  => Service['activemq'],
   }
 
 }

@@ -43,12 +43,12 @@ define activemq::instance(
   $instance_enabled_path = "/etc/activemq/instances-enabled/${real_name}"
 
   File {
-    notify => Class['activemq::service'],
+    notify => Service['activemq'],
   }
 
   file { $instance_path:
     ensure  => directory,
-    require => Class['activemq::config'],
+    require => Package['activemq'],
   }
 
   file {"${instance_path}/activemq.xml":

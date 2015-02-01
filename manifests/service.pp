@@ -1,7 +1,8 @@
 class activemq::service {
 
   service {'activemq':
-    ensure => running,
+    ensure  => running,
+    require => Package['activemq'],
   }
 
 }
