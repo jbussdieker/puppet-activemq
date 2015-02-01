@@ -15,4 +15,6 @@ class activemq(
     require => Class['activemq::config'],
   }
 
+  create_resources('activemq::instance', $instances)
+
 }
