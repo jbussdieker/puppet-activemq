@@ -1,0 +1,30 @@
+{
+  "name": "jbussdieker-activemq",
+  "version": "0.0.2",
+  "author": "Joshua Bussdieker",
+  "summary": "Puppet ActiveMQ management module",
+  "license": "MIT",
+  "source": "http://github.com/jbussdieker/puppet-activemq",
+  "project_page": "http://github.com/jbussdieker/puppet-activemq",
+  "issues_url": "https://github.com/jbussdieker/puppet-activemq/issues",
+  "description": "This module can be used for ActiveMQ management",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04" ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [],
+  "tags": [
+    "mcollective",
+    "activemq",
+    "messaging",
+    "queue"
+  ]
+}

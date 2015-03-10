@@ -3,8 +3,6 @@ class activemq(
   $instances = {}
 ) {
 
-  include java
-  
   class {'activemq::package':
   }
 

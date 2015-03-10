@@ -1,9 +1,24 @@
 source 'https://rubygems.org'
 
-puppet_version = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 2.7']
+group :development, :unit_tests do
+  gem 'rspec-puppet'
+  gem 'simplecov', :require => false
+  gem 'puppetlabs_spec_helper'
+end
 
-gem 'rake'
-gem 'rspec'
-gem 'rspec-puppet'
-gem 'puppet', puppet_version
-gem 'puppetlabs_spec_helper'
+group :system_tests do
+  gem 'beaker-rspec', :require => false
+  gem 'serverspec', :require => false
+end
+
+if facterversion = ENV['FACTER_GEM_VERSION']
+  gem 'facter', facterversion, :require => false
+else
+  gem 'facter', :require => false
+end
+
+if puppetversion = ENV['PUPPET_GEM_VERSION']
+  gem 'puppet', puppetversion, :require => false
+else
+  gem 'puppet', :require => false
+end
