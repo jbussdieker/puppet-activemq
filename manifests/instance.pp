@@ -1,3 +1,4 @@
+# == Define: activemq::instance
 define activemq::instance(
   $instance_name    = '',
   $openwire         = true,
@@ -7,17 +8,17 @@ define activemq::instance(
   $stomp_queue      = true,
   $stomp_queue_port = 61613,
 
-  $user_name        = "guest",
-  $user_password    = "guest",
-  $user_groups      = "users,everyone",
+  $user_name        = 'guest',
+  $user_password    = 'guest',
+  $user_groups      = 'users,everyone',
   $user_auth_queue  = '',
   $user_auth_topic  = '',
 
-  $admin_name       = "admin",
-  $admin_password   = "admin",
-  $admin_groups     = "admins,everyone",
-  $admin_auth_queue  = ">",
-  $admin_auth_topic  = ">",
+  $admin_name       = 'admin',
+  $admin_password   = 'admin',
+  $admin_groups     = 'admins,everyone',
+  $admin_auth_queue  = '>',
+  $admin_auth_topic  = '>',
 ) {
 
   if $instance_name != '' {
@@ -70,8 +71,8 @@ define activemq::instance(
   }
 
   file { $instance_enabled_path:
-    ensure => link,
-    target => $instance_path,
+    ensure  => link,
+    target  => $instance_path,
     require => [
       File["${instance_path}/activemq.xml"],
       File["${instance_path}/log4j.properties"],

@@ -1,3 +1,4 @@
+# == Class: activemq::service
 class activemq::service {
 
   service {'activemq':

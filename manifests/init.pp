@@ -1,3 +1,4 @@
+# == Class: activemq
 class activemq(
   $user = 'activemq',
   $instances = {}
