@@ -33,12 +33,15 @@
 
     <plugins>
       <statisticsBrokerPlugin/>
+      <% if @authentication_enabled %>
       <simpleAuthenticationPlugin>
         <users>
           <authenticationUser username="<%= @admin_name %>" password="<%= @admin_password %>" groups="<%= @admin_groups %>"/>
           <authenticationUser username="<%= @user_name %>" password="<%= @user_password %>" groups="<%= @user_groups %>"/>
         </users>
       </simpleAuthenticationPlugin>
+      <% end %>
+      <% if @authorization_enabled %>
       <authorizationPlugin>
         <map>
           <authorizationMap>
@@ -52,6 +55,7 @@
           </authorizationMap>
         </map>
       </authorizationPlugin>
+      <% end %>
     </plugins>
 
     <systemUsage>

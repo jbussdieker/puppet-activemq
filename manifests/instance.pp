@@ -19,6 +19,8 @@ define activemq::instance(
   $admin_groups     = 'admins,everyone',
   $admin_auth_queue  = '>',
   $admin_auth_topic  = '>',
+  $authentication_enabled = true,
+  $authorization_enabled  = true
 ) {
 
   if $instance_name != '' {
