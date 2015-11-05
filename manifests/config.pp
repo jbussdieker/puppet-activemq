@@ -1,6 +1,8 @@
 # == Class: activemq::config
 class activemq::config {
 
+  $user = $::activemq::user
+
   file {'/etc/default/activemq':
     ensure  => present,
     owner   => 'root',
